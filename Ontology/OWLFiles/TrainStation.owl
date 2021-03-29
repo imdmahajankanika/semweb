@@ -1,0 +1,355 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:schema="http://schema.org/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://www.owl-ontologies.com/unnamed.owl#"
+    xmlns:ex="http://example.com/"
+  xml:base="http://www.owl-ontologies.com/unnamed.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="City">
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Station"/>
+    </owl:disjointWith>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="Department"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="geoWithin"/>
+        </owl:onProperty>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Department"/>
+        </owl:someValuesFrom>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Station">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#City"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="is_in"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom>
+          <owl:Class rdf:about="#Department"/>
+        </owl:someValuesFrom>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="addressLocality"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:about="#Department"/>
+    </owl:disjointWith>
+    <owl:disjointWith rdf:resource="#City"/>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Department">
+    <owl:disjointWith rdf:resource="#City"/>
+    <owl:disjointWith rdf:resource="#Station"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="#addressLocality">
+    <rdfs:domain rdf:resource="#Station"/>
+    <rdfs:range rdf:resource="#Department"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#is_in">
+    <rdfs:domain rdf:resource="#Station"/>
+    <rdfs:range rdf:resource="#City"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#geoWithin">
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="#Department"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="openHrs">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Station"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="name_dept">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Department"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="id_station">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="#Station"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="id_dept">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Department"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="longitude">
+    <rdfs:domain rdf:resource="#Station"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="name_city">
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="latitude">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    <rdfs:domain rdf:resource="#Station"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="name_station">
+    <rdfs:domain rdf:resource="#Station"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="city_code">
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <Station rdf:ID="st_0087592246">
+    <addressLocality>
+      <Department rdf:ID="dept_87">
+        <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >87</id_dept>
+        <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Haute-Vienne</name_dept>
+      </Department>
+    </addressLocality>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >1.2856817</longitude>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Solignac - Le Vigen</name_station>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087592246</id_station>
+    <is_in>
+      <City rdf:ID="cityy_87110_192">
+        <geoWithin rdf:resource="#dept_87"/>
+        <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Solignac</name_city>
+        <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >87110_192</city_code>
+      </City>
+    </is_in>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >45.756157</latitude>
+  </Station>
+  <Department rdf:ID="dept_60">
+    <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Oise</name_dept>
+    <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >60</id_dept>
+  </Department>
+  <City rdf:ID="city_67240_252">
+    <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Kurtzenhouse</name_city>
+    <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >67240_252</city_code>
+    <geoWithin>
+      <Department rdf:ID="dept_67">
+        <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Bas-Rhin</name_dept>
+        <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >67</id_dept>
+      </Department>
+    </geoWithin>
+  </City>
+  <City rdf:ID="city_66360_125">
+    <geoWithin>
+      <Department rdf:ID="dept_66">
+        <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Pyrénées-Orientales</name_dept>
+        <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >66</id_dept>
+      </Department>
+    </geoWithin>
+    <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >66360_125</city_code>
+    <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Olette</name_city>
+  </City>
+  <Station rdf:ID="st_0087213470">
+    <openHrs rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Mardi - jour normal : 05:00-21:00, jour férié : 08:10-21:00 , Mercredi - jour normal : 05:00-21:00, jour férié : 08:10-21:00 , Lundi - jour normal : 05:00-21:00, jour férié : 08:10-21:00, Jeudi - jour normal : 05:00-21:00, jour férié : 08:10-21:00 , Vendredi - jour normal : 05:00-21:00, jour férié : 08:10-21:00 , Samedi - jour normal : 06:00-22:25, jour férié : 08:10-21:00 , Dimanche - jour normal : 08:10-21:00, jour férié : 08:10-21:00</openHrs>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >7.9501433</longitude>
+    <addressLocality rdf:resource="#dept_67"/>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >49.03189</latitude>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087213470</id_station>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Wissembourg</name_station>
+    <is_in>
+      <City rdf:ID="city_67160_544">
+        <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Wissembourg</name_city>
+        <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >67160_544</city_code>
+        <geoWithin rdf:resource="#dept_67"/>
+      </City>
+    </is_in>
+  </Station>
+  <Department rdf:ID="dept_75">
+    <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Paris</name_dept>
+    <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >75</id_dept>
+  </Department>
+  <City rdf:ID="city_75012_056">
+    <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >75012_056</city_code>
+    <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Paris</name_city>
+    <geoWithin rdf:resource="#dept_75"/>
+  </City>
+  <Station rdf:ID="st_0087213660">
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087213660</id_station>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >48.741863</latitude>
+    <is_in rdf:resource="#city_67240_252"/>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Kurtzenhouse</name_station>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >7.813045</longitude>
+    <addressLocality rdf:resource="#dept_67"/>
+  </Station>
+  <City rdf:ID="city_11150_049">
+    <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bram</name_city>
+    <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >11150_049</city_code>
+    <geoWithin>
+      <Department rdf:ID="dept_11">
+        <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >11</id_dept>
+        <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Aude</name_dept>
+      </Department>
+    </geoWithin>
+  </City>
+  <Station rdf:ID="st_0087345553">
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bertry</name_station>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087345553</id_station>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >3.4489956</longitude>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >50.091125</latitude>
+  </Station>
+  <Station rdf:ID="st_0087686030">
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087686030</id_station>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >2.37352</longitude>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Paris Gare de Lyon</name_station>
+    <addressLocality rdf:resource="#dept_75"/>
+    <is_in rdf:resource="#city_75012_056"/>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >48.844887</latitude>
+  </Station>
+  <Station rdf:ID="st_0087673624">
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >43.404808</latitude>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >-1.4489654</longitude>
+    <is_in>
+      <City rdf:ID="city_64480_547">
+        <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Ustaritz</name_city>
+        <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >64480_547</city_code>
+        <geoWithin>
+          <Department rdf:ID="dept_64">
+            <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Pyrénées-Atlantiques</name_dept>
+            <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >64</id_dept>
+          </Department>
+        </geoWithin>
+      </City>
+    </is_in>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087673624</id_station>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Ustaritz</name_station>
+    <addressLocality rdf:resource="#dept_64"/>
+  </Station>
+  <Station rdf:ID="st_0087784728">
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >42.55472</latitude>
+    <addressLocality rdf:resource="#dept_66"/>
+    <is_in rdf:resource="#city_66360_125"/>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Olette - Canaveilles</name_station>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087784728</id_station>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >2.271931</longitude>
+  </Station>
+  <City rdf:ID="city_77580_142">
+    <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >77580_142</city_code>
+    <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Crécy-la-Chapelle</name_city>
+    <geoWithin>
+      <Department rdf:ID="dept_77">
+        <id_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >77</id_dept>
+        <name_dept rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Seine-et-Marne</name_dept>
+      </Department>
+    </geoWithin>
+  </City>
+  <Station rdf:ID="st_0087116665">
+    <is_in>
+      <City rdf:ID="city_60890_380">
+        <city_code rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >60890_380</city_code>
+        <geoWithin rdf:resource="#dept_60"/>
+        <name_city rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Mareuil-sur-Ourcq</name_city>
+      </City>
+    </is_in>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Mareuil-sur-Ourcq</name_station>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087116665</id_station>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >49.13554</latitude>
+    <addressLocality rdf:resource="#dept_60"/>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >3.075653</longitude>
+  </Station>
+  <Station rdf:ID="st_0087615054">
+    <addressLocality rdf:resource="#dept_11"/>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >43.244102</latitude>
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087615054</id_station>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >2.1191466</longitude>
+    <openHrs rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Jeudi - jour normal : 09:30-12:50 , Mardi - jour normal : 09:30-12:50 , Mercredi - jour normal : 09:30-12:50 , Vendredi - jour normal : 11:30-15:30 , Lundi - jour normal : 09:30-12:50</openHrs>
+    <is_in rdf:resource="#city_11150_049"/>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Bram</name_station>
+  </Station>
+  <Station rdf:ID="st_0087116772">
+    <id_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0087116772</id_station>
+    <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >48.85939</latitude>
+    <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float"
+    >2.905748</longitude>
+    <is_in rdf:resource="#city_77580_142"/>
+    <addressLocality rdf:resource="#dept_77"/>
+    <name_station rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Crécy-la-Chapelle</name_station>
+  </Station>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 1.3, Build 225.4)  http://protege.stanford.edu -->
