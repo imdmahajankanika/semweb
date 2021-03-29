@@ -1,0 +1,177 @@
+# select stations located in particular department (Paris 75)
+SELECT ?st ?station ?id ?lat ?lon ?dept ?city 
+WHERE {   ?st hasName ?station.
+			?st hasId  ?id. 
+			?st HasLatitude ?lat.
+			?st HasLongitude ?lon.   
+			?st AddrLocality  ex:dept/id .   
+			?st AddrLocality ?id_dept.
+			?id_dept HasName ?dept. 
+			?st PostalCode ?id_city.   
+			?id_city HasName  ?city. 
+			}
+ORDER BY ASC(?station)  LIMIT 1000
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix ex: <http://example.com/>
+SELECT ?st ?station ?id ?lat ?lon ?dept ?city 
+WHERE {   ?st schema:name ?station.
+			?st schema:identifier  ?id. 
+			?st schema:latitude ?lat.
+			?st schema:longitude ?lon.  
+  			?st schema:addressLocality <http://example.com/departments/75> .
+			?st schema:addressLocality ?id_dept.
+			?id_dept schema:name ?dept. 
+			?st schema:postalCode ?id_city.   
+			?id_city schema:name  ?city. 
+			}
+ORDER BY ASC(?station)  LIMIT 1000
+-----------------------------------------------------------------------------------------------------------------------------------
+# List of all stations
+SELECT ?st ?station ?id ?lat ?lon ?city ?dept 
+WHERE {
+		?st HasName ?station.
+		?st HasId ?id.
+		?st HasLatitude ?lat.
+		?st HasLongitude ?lon.
+		?st AddrLocality ?dept_id.
+		?st PostalCode ?city_id.
+		?city_id HasName ?city.
+		?dept_id HasName ?dept.
+	}
+
+ORDER BY ASC(?station)LIMIT 1000
+------------------------------------------------------------------------------------------------------------------------------------
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix ex: <http://example.com/>
+SELECT ?st ?station ?id ?lat ?lon ?city ?dept 
+WHERE {
+		?st schema:name ?station.
+		?st schema:identifier ?id.
+		?st schema:latitude ?lat.
+		?st schema:longitude ?lon.
+		?st schema:addressLocality ?dept_id.
+		?st schema:postalCode ?city_id.
+		?city_id schema:name ?city.
+		?dept_id schema:name ?dept.
+	}
+ORDER BY ASC(?station)LIMIT 1000
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+# List the details of a particular station (id="0087276691")
+
+SELECT ?st ?station ?lat ?lon ?id_dept ?dept ?city ?oh
+WHERE {
+		?st HasName ?station.
+		?st HasId "0087276691" .
+		?st HasLatitude ?lat.
+		?st HasLongitude ?lon .
+		?st AddrLocality ?id_dept.
+		?id_dept HasName ?dept. 
+		?st PostalCode ?id_city. 
+		?id_city HasName ?city.
+	OPTIONAL {?st OpenHrs ?oh. } 
+	}
+ORDER BY ASC(?station)
+LIMIT 1000
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix ex: <http://example.com/>
+SELECT ?st ?station ?lat ?lon ?id_dept ?dept ?city ?oh
+WHERE {
+		?st schema:name ?station.
+		?st schema:identifier "0087276691" .
+		?st schema:latitude ?lat.
+		?st schema:longitude ?lon .
+		?st schema:addressLocality ?id_dept.
+		?id_dept schema:name ?dept. 
+		?st schema:postalCode ?id_city. 
+		?id_city schema:name ?city.
+	OPTIONAL {?st schema:openingHours ?oh. } 
+	}
+ORDER BY ASC(?station)
+LIMIT 1000
+
+--------------------------------------------------------------------------------------------------------------------------------------
+# list stations with in a given distance (5000km) from position with coordinates(4.97-long and 44.99 latitude)
+
+PREFIX math: <http://www.w3.org/2005/xpath-functions/math#>
+
+SELECT ?st ?station ?id ?lat ?lon ?city ?dept ?dist_c
+WHERE {
+		?st HasName ?station .
+		?st HasId ?id.
+		?st HasLatitude ?lat.
+		?st HasLongitude ?lon.
+		?st AddrLocality ?dept_id.
+		?st PostalCode ?city_id.
+		?city_id HasName ?city.
+		?dept_id HasName ?dept.
+	BIND ((?lon - 4.97) as ?dlon)
+	BIND ((6371 * math:acos(math:sin(?lat*math:pi()/180)*math:sin(44.99*math:pi()/180)+	math:cos(?lat*math:pi()/180)*math:cos(44.99*math:pi()/180)*math:cos(?dlon*math:pi()/180))) AS ?dist_c)
+	FILTER (?dist_c < 5000)
+	}
+ORDER BY ASC(?dist_c)
+LIMIT  this.num_results
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix ex: <http://example.com/>
+PREFIX math: <http://www.w3.org/2005/xpath-functions/math#>
+
+SELECT ?st ?station ?id ?lat ?lon ?city ?dept ?dist_c
+WHERE {
+		?st schema:name ?station .
+		?st schema:identifier ?id.
+		?st schema:latitude ?lat.
+		?st schema:longitude ?lon.
+		?st schema:addressLocality ?dept_id.
+		?st schema:postalCode ?city_id.
+		?city_id schema:name ?city.
+		?dept_id schema:name ?dept.
+	BIND ((?lon - 4.97) as ?dlon)
+	BIND ((6371 * math:acos(math:sin(?lat*math:pi()/180)*math:sin(44.99*math:pi()/180)+	math:cos(?lat*math:pi()/180)*math:cos(44.99*math:pi()/180)*math:cos(?dlon*math:pi()/180))) AS ?dist_c)
+	FILTER (?dist_c < 5000)
+	}
+ORDER BY ASC(?dist_c)
+LIMIT  10
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# List all the departments
+SELECT DISTINCT  ?code_dept ?name_dept
+WHERE {
+		?code_dept HasName ?name_dept.
+		?station AddrLocality ?code_dept.
+		
+	}
+ORDER BY ASC(?code_dept)
+LIMIT 100
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix schema: <http://schema.org/>
+prefix ex: <http://example.com/>
+
+SELECT DISTINCT  ?code_dept ?name_dept
+WHERE {
+		?code_dept schema:name ?name_dept.
+		?station schema:addressLocality ?code_dept.
+		
+	}
+ORDER BY ASC(?code_dept)
+LIMIT 100
