@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,7 +72,8 @@ public class Main extends HttpServlet {
 		// Reading data from stations dataset
 		CSVParser parser = new CSVParserBuilder().withSeparator(Utility.SPLIT).build();
 		CSVReader st_reader = new CSVReaderBuilder(
-				new FileReader(classLoader.getResource(Utility.STATION_DATA).getPath())).withCSVParser(parser).build();
+				new FileReader(classLoader.getResource(Utility.STATION_DATA).getPath(), StandardCharsets.UTF_8))
+						.withCSVParser(parser).build();
 		// Converting each row of dataset to RDF triplets
 		String[] st_record;
 		// Skipping the first row with titles
@@ -105,8 +107,8 @@ public class Main extends HttpServlet {
 		// Reading data from Timetable dataset
 		CSVParser parser2 = new CSVParserBuilder().withSeparator(Utility.SPLIT).build();
 		CSVReader tt_reader = new CSVReaderBuilder(
-				new FileReader(classLoader.getResource(Utility.TIMETABLE_DATA).getPath())).withCSVParser(parser2)
-						.build();
+				new FileReader(classLoader.getResource(Utility.TIMETABLE_DATA).getPath(), StandardCharsets.UTF_8))
+						.withCSVParser(parser2).build();
 		// Converting each row of dataset to RDF triplets
 		String[] tt_record;
 		// Skipping the first row with titles
@@ -134,7 +136,7 @@ public class Main extends HttpServlet {
 			// RDFDataMgr.write(out, model, Lang.TURTLE);
 			// FileWriter out = new
 			// FileWriter(classLoader.getResource(Utility.MODELOUTPUT_FILE).getFile());
-			File file = new File(classLoader.getResource(".").getFile() + "export.txt");
+			File file = new File(classLoader.getResource(".").getFile() + Utility.MODELOUTPUT_FILE);
 			BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
 			try {
 				model.write(out, "Turtle");
